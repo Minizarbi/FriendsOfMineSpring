@@ -1,9 +1,6 @@
 package friendsofmine;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,16 +19,11 @@ public class Activite {
 
     private String descriptif;
 
+    @NotNull
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    private Utilisateur responsable;
+
     public Activite() {}
-
-    public Activite(String titre) {
-        this.titre = titre;
-    }
-
-    public Activite(String titre, String descriptif) {
-        this.titre = titre;
-        this.descriptif = descriptif;
-    }
 
     @Override
     public String toString() {
@@ -39,6 +31,14 @@ public class Activite {
                 "titre='" + titre + '\'' +
                 ", descriptif='" + descriptif + '\'' +
                 '}';
+    }
+
+    public Utilisateur getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Utilisateur responsable) {
+        this.responsable = responsable;
     }
 
     public Long getId() {

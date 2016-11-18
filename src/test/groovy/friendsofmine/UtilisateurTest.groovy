@@ -1,5 +1,6 @@
 package friendsofmine
 
+
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -7,9 +8,7 @@ import javax.validation.Validation
 import javax.validation.Validator
 import javax.validation.ValidatorFactory
 
-/**
- * Created by Camille on 19/10/2016.
- */
+
 class UtilisateurTest extends Specification {
 
     Validator validator
@@ -23,10 +22,13 @@ class UtilisateurTest extends Specification {
     void "test la validite d'un utilisateur valide"(String unNom, String unPrenom, String unEmail, String unSexe, Date uneDateNaissance) {
 
         given: "un utilisateur initialise correctement"
-        Utilisateur utilisateur = new Utilisateur(nom : unNom, prenom : unPrenom, email : unEmail, sexe : unSexe, dateNaissance : uneDateNaissance)
+        Utilisateur utilisateur = new Utilisateur(nom: unNom, prenom: unPrenom, email: unEmail, sexe: unSexe, dateNaissance: uneDateNaissance)
 
         expect: "l'utilisateur est valide"
         validator.validate(utilisateur).empty
+
+        and: "il n'est proprietaire d'aucune activite"
+        !utilisateur.activites
 
         where:
         unNom    | unPrenom  | unEmail     | unSexe | uneDateNaissance
@@ -40,7 +42,7 @@ class UtilisateurTest extends Specification {
     void "test l'invalidite d'un utilisateur non valide"(String unNom, String unPrenom, String unEmail, String unSexe) {
 
         given: "un utilisateur initialise de maniere non valide"
-        Utilisateur utilisateur = new Utilisateur(nom : unNom, prenom: unPrenom, email: unEmail, sexe : unSexe)
+        Utilisateur utilisateur = new Utilisateur(nom: unNom, prenom: unPrenom, email: unEmail, sexe: unSexe)
 
         expect: "l'utilisateur est invalide"
         !validator.validate(utilisateur).empty

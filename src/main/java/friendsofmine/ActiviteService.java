@@ -1,12 +1,9 @@
 package friendsofmine;
 
 import friendsofmine.repositories.ActiviteRepository;
-import friendsofmine.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.validation.ConstraintViolationException;
 
 /**
  * Created by Camille on 21/10/2016.
@@ -19,6 +16,13 @@ public class ActiviteService {
     ActiviteRepository activiteRepository;
 
     public void saveActivite(Activite uneActivite) {
+        if (uneActivite.getResponsable() != null) {
+            uneActivite.getResponsable().getActivites().add(uneActivite);
+        }
         activiteRepository.save(uneActivite);
+    }
+
+    public Iterable<Activite> findAllActivites() {
+        return activiteRepository.findAll((new Sort("titre")));
     }
 }

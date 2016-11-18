@@ -1,13 +1,12 @@
 package friendsofmine;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Camille on 19/10/2016.
@@ -33,23 +32,13 @@ public class Utilisateur {
     @Pattern(regexp="^(M|F)$")
     private String sexe;
 
+    @OneToMany(mappedBy = "responsable")
+    private Set<Activite> activites;
+
     private Date dateNaissance;
 
-    public Utilisateur() {}
-
-    public Utilisateur(String nom, String prenom, String email, String sexe) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.sexe = sexe;
-    }
-
-    public Utilisateur(String nom, String prenom, String email, String sexe, Date dateNaissance) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.sexe = sexe;
-        this.dateNaissance = dateNaissance;
+    public Utilisateur() {
+        this.activites = new HashSet<>();
     }
 
     public Long getId() {
@@ -98,6 +87,10 @@ public class Utilisateur {
 
     public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
+    }
+
+    public Set<Activite> getActivites() {
+        return activites;
     }
 
     @Override

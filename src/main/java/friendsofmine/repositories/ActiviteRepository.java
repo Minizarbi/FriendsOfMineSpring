@@ -10,5 +10,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ActiviteRepository extends PagingAndSortingRepository<Activite, Long>, CrudRepository<Activite, Long>  {
-
 }

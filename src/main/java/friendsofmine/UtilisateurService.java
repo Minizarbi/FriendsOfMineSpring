@@ -4,8 +4,6 @@ import friendsofmine.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolationException;
-
 /**
  * Created by Camille on 21/10/2016.
  */
